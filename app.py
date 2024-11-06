@@ -14,7 +14,7 @@ df['Yield'] = ((100 - df['Цена, пп']) * 100) / df['Срок  до пога
 df['Cupon'] = df['spread'] / df['Цена, пп'] * 100 - df['spread']
 df['Cspread'] = round(df['spread'] + df['Cupon'] + df['Yield'])
 df['deltaS'] = round(df['Cspread'] - df['spread'])
-df['Name_rating_gap'] = df.apply(lambda row: f"{row['Тикер']},{row['Рейтинг']},{row['deltaS']}", axis=1)
+df['Name_rating_gap'] = df.apply(lambda row: f"{row['Тикер']}, {row['Рейтинг']}, {row['deltaS']}", axis=1)
 df['Размещениеt'] = pd.to_datetime(df['Размещение'], dayfirst=True)
 df['Размещениеt'] = df['Размещениеt'].dt.date
 df = df.sort_values(by='Размещениеt',ascending=True) #Cортируем от малых к большим
