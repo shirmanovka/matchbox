@@ -79,22 +79,7 @@ if not f_df.empty:
  
     # Показываем график в Streamlit
     st.pyplot(plt)
- 
-  # Сохранение графика в буфер
-    buf = io.BytesIO()
-    plt.savefig(buf, format='png')
-    buf.seek(0)
 
-    # Отображение графика в Streamlit
-    st.pyplot(plt)
-
-    # Кнопка для скачивания графика
-    st.download_button(
-        label="Скачать график",
-        data=buf,
-        file_name='market_map.png',
-        mime='image/png'
-    )
 
 else:
     st.write("Нет данных для отображения.")
