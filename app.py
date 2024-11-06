@@ -49,6 +49,17 @@ f_df = df1[
     (df1['Размещениеt'] >= start_date) &
     (df1['Размещениеt'] <= end_date)
 ]
+
+# Возможность удаления строк
+if not f_df.empty:
+    # Позволяем пользователю выбрать строки для удаления по индексу
+    indices_to_delete = st.multiselect(
+        'Выберите строки для удаления (по индексу):', options=f_df.index.tolist(), default=[]
+    )
+    
+    # Удаляем выбранные строки из отфильтрованного DataFrame
+    f_df = f_df.drop(index=indices_to_delete)
+
 # Отображение отфильтрованного DataFrame
 st.dataframe(f_df)
  
