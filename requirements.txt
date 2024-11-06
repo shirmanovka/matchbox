@@ -3,4 +3,3 @@ streamlit
 matplotlib
 openpyxl
 numpy
-io
