@@ -3,4 +3,4 @@ streamlit
 matplotlib
 openpyxl
 numpy
-base64
+io
