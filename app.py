@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import streamlit as st
-import base64
+import io
  
 # Читаем файл xlsx
 df = pd.read_excel(('Карта рынка.xlsx'), skiprows=1)
@@ -79,16 +79,22 @@ if not f_df.empty:
  
     # Показываем график в Streamlit
     st.pyplot(plt)
-    plt.savefig('market_map.png')
-    
-    # Читаем файл и кодируем его в base64
-    with open("market_map.png", "rb") as f:
-        img = f.read()
-        b64_img = base64.b64encode(img).decode()
+ 
+  # Сохранение графика в буфер
+    buf = io.BytesIO()
+    plt.savefig(buf, format='png')
+    buf.seek(0)
 
-    # Создаем ссылку на скачивание графика
-    href = f'<a href="data:image/png;base64,{b64_img}" download="market_map.png">Скачать график</a>'
-    st.markdown(href, unsafe_allow_html=True)
+    # Отображение графика в Streamlit
+    st.pyplot(plt)
+
+    # Кнопка для скачивания графика
+    st.download_button(
+        label="Скачать график",
+        data=buf,
+        file_name='market_map.png',
+        mime='image/png'
+    )
 
 else:
     st.write("Нет данных для отображения.")
