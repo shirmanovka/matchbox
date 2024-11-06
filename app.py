@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import streamlit as st
-import io
+
  
 # Читаем файл xlsx
 df = pd.read_excel(('Карта рынка.xlsx'), skiprows=1)
