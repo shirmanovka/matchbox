@@ -53,7 +53,7 @@ st.dataframe(f_df)
  
 # Построение графика
 if not f_df.empty:
-    plt.figure(figsize=(20, 10))
+    plt.figure(figsize=(12, 6))
  
     plt.scatter(f_df['Размещениеt'], f_df['Cspread'], color='darkred', marker='o', s=80, label='Текущий спред')
     plt.scatter(f_df['Размещениеt'], f_df['spread'], color='tan', marker='o', s=80, label='Спред при размещении')
