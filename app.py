@@ -48,8 +48,9 @@ max_date = df1['Размещениеt'].max()
 start_date = st.date_input('Выберите начальную дату:', min_value=min_date, max_value=max_date, value=min_date)
 end_date = st.date_input('Выберите конечную дату:', min_value=start_date, max_value=max_date, value=max_date)
 
-# Фильтрация данных
+#Фильтрация данных
 f_df = df1[
+    (df1['ISIN'].isin(input_isin_list) | (len(input_isin_list) == 0)) &
     (df1['Тикер'].isin(selected_tickers) | (len(selected_tickers) == 0)) &
     (df1['Рейтинг'].isin(selected_ratings) | (len(selected_ratings) == 0)) &
     (df1['Размещениеt'] >= start_date) &
