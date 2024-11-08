@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import streamlit as st
 
-col1, col2, col3 = st.columns([1,2,1]) 
+
 # Читаем файл xlsx
 df = pd.read_excel(('Карта рынка.xlsx'), skiprows=1)
  
@@ -28,7 +28,7 @@ df1 = df[['ISIN', 'Тикер', 'Рейтинг', 'Валюта', 'Цена, п�
 
 # Создаем Streamlit интерфейс
 st.title('Карта рынка флоутеров TEST')
-
+upload_xlsx=file_uplouder('Загрузите файл XLSX')
 # Поле для ввода списка ISIN
 isin_input = st.text_area("Введите свои ISIN (по одному на строку):", height=150)
 
@@ -68,7 +68,7 @@ if not f_df.empty:
     f_df = f_df.drop(index=indices_to_delete)
 
 # Отображение отфильтрованного DataFrame
-col2.dataframe(f_df)
+st.dataframe(f_df)
  
 # Построение графика
 if not f_df.empty:
@@ -96,7 +96,7 @@ if not f_df.empty:
     plt.xticks(rotation=45)
  
     # Показываем график в Streamlit
-    col2.pyplot(plt)
+    st.pyplot(plt)
 
 
 else:
