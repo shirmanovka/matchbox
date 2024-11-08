@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import streamlit as st
 
-col1, col2 = st.columns([1,2]) 
+col1, col2, col3 = st.columns([1,2,1]) 
 # Читаем файл xlsx
 df = pd.read_excel(('Карта рынка.xlsx'), skiprows=1)
  
