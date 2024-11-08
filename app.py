@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import streamlit as st
 
- 
+col1, col2 = st.columns([1,2]) 
 # Читаем файл xlsx
 df = pd.read_excel(('Карта рынка.xlsx'), skiprows=1)
  
@@ -68,7 +68,7 @@ if not f_df.empty:
     f_df = f_df.drop(index=indices_to_delete)
 
 # Отображение отфильтрованного DataFrame
-st.dataframe(f_df)
+col2.dataframe(f_df)
  
 # Построение графика
 if not f_df.empty:
@@ -96,7 +96,7 @@ if not f_df.empty:
     plt.xticks(rotation=45)
  
     # Показываем график в Streamlit
-    st.pyplot(plt)
+    col2.pyplot(plt)
 
 
 else:
