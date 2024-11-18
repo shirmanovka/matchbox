@@ -4,11 +4,38 @@ import matplotlib.pyplot as plt
 import streamlit as st
 
 
+moex_url = 'https://iss.moex.com/iss/engines/stock/markets/bonds/boards/TQCB/securities.json'
+response = requests.get(moex_url) #получим ответ от сервера
+result = json.loads(response.text)
+col_name = result['securities']['columns'] # описываем какие колонки нахоядтся в матоданных #securuties или #history
+data_bonds_securities = pd.DataFrame(columns = col_name)
+data_bonds_securities
+# Часть_2 заполняем дата фрейм
+moex_url_securities = 'https://iss.moex.com/iss/engines/stock/markets/bonds/boards/TQCB/securities.json' #TQOB ОФЗ
+response = requests.get(moex_url_securities)
+result = json.loads(response.text)
+resp_date = result['securities']['data']
+securities_data_bonds = pd.DataFrame(resp_date, columns = col_name)
+a = len(resp_date)
+
+#Маленькая таблица сформированная из основной, показывающая краткий свод информации.
+securities_data_bonds = securities_data_bonds[securities_data_bonds['FACEUNIT'] == 'SUR']
+s_df = securities_data_bonds[['SECID',  'PREVLEGALCLOSEPRICE']].copy()
+s_df = s_df.rename(columns ={'SECID': 'ISIN'})
+s_df = s_df.rename(columns ={'PREVLEGALCLOSEPRICE': 'Цена, пп'})
+
+ 
+
+
 # Читаем файл xlsx
 df = pd.read_excel(('Карта рынка.xlsx'), skiprows=1)
- 
+df = df.rename(columns ={'Цена, пп': 'Цена, пп1'}) # переименовал столбец чтобы его заменить
+
+
+df = pd.merge(s_df, df, on='ISIN', how='inner') #соеденил две таблицы, а дальше как в обычном расчете.
+
+
 df['Объем, млн'] = pd.to_numeric(df['Объем, млн'], errors='coerce')  # Преобразует в NaN некорректные значения
- 
 # Формируем расчетные столбцы
 df['spread'] = (df['Спред, пп'] * 100)
 df['Yield'] = ((100 - df['Цена, пп']) * 100) / df['Срок  до погашения / оферты, лет']
