@@ -10,7 +10,6 @@ response = requests.get(moex_url) #получим ответ от сервера
 result = json.loads(response.text)
 col_name = result['securities']['columns'] # описываем какие колонки нахоядтся в матоданных #securuties или #history
 data_bonds_securities = pd.DataFrame(columns = col_name)
-data_bonds_securities
 # Часть_2 заполняем дата фрейм
 moex_url_securities = 'https://iss.moex.com/iss/engines/stock/markets/bonds/boards/TQCB/securities.json' #TQOB ОФЗ
 response = requests.get(moex_url_securities)
