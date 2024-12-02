@@ -72,25 +72,10 @@ ratings = df1['Рейтинг'].unique()
 selected_ratings = st.multiselect('Выберите рейтинг:', ratings)
  
 # Фильтр по дате
-#min_date = df1['Размещениеt'].min()
-#max_date = df1['Размещениеt'].max()
-#start_date = st.date_input('Выберите начальную дату:', min_value=min_date, max_value=max_date, value=min_date)
-#end_date = st.date_input('Выберите конечную дату:', min_value=start_date, max_value=max_date, value=max_date)
-
-# Установка дат для фильтрации
-min_date = df1['Размещениеt'].min()  # Минимальная дата из датафрейма
-max_date = df1['Размещениеt'].max()  # Максимальная дата из датафрейма
-default_start_date = pd.to_datetime('2024-01-01').date()  # Дата по умолчанию
-
-# Установка фильтров с дефолтной датой 01.01.2024
-start_date = st.date_input('Выберите начальную дату:', 
-                            min_value=min_date, 
-                            max_value=max_date, 
-                            value=default_start_date)
-end_date = st.date_input('Выберите конечную дату:', 
-                          min_value=start_date, 
-                          max_value=max_date, 
-                          value=max_date)
+min_date = df1['Размещениеt'].min()
+max_date = df1['Размещениеt'].max()
+start_date = st.date_input('Выберите начальную дату:', min_value=min_date, max_value=max_date, value=min_date)
+end_date = st.date_input('Выберите конечную дату:', min_value=start_date, max_value=max_date, value=max_date)
 
 #Фильтрация данных
 f_df = df1[
