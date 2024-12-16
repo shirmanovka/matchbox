@@ -101,7 +101,7 @@ if not f_df.empty:
         mode='markers+text',
         marker=dict(color='darkred', size=10),
         text=f_df['Name_rating_gap'],
-        textposition='top center',
+        textposition='middle right',  # Подписи справа
         name='Текущий спред'
     ))
 
@@ -121,7 +121,7 @@ if not f_df.empty:
                 fig.add_trace(go.Scatter(
                     x=[f_df['Размещениеt'].iloc[i], f_df['Размещениеt'].iloc[j]],
                     y=[f_df['spread'].iloc[i], f_df['Cspread'].iloc[j]],
-                    mode='lines+text',
+                    mode='lines',
                     line=dict(color='goldenrod', width=2),
                     showlegend=False
                 ))
