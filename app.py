@@ -115,16 +115,19 @@ if not f_df.empty:
     ))
 
     # Добавление стрелок между точками с одинаковой датой размещения
-    for i in range(len(f_df)):
-        for j in range(len(f_df)):
-            if f_df['Размещениеt'].iloc[i] == f_df['Размещениеt'].iloc[j] and i != j:
-                fig.add_trace(go.Scatter(
-                    x=[f_df['Размещениеt'].iloc[i], f_df['Размещениеt'].iloc[j]],
-                    y=[f_df['spread'].iloc[i], f_df['Cspread'].iloc[j]],
-                    mode='lines',
-                    line=dict(color='goldenrod', width=2),
-                    showlegend=False
-                ))
+    dates = f_df['Размещениеt'].unique()
+    for date in dates:
+        same_date_points = f_df[f_df['Размещениеt'] == date]
+        if len(same_date_points) > 1:
+            for i in range(len(same_date_points)):
+                for j in range(i + 1, len(same_date_points)):
+                    fig.add_trace(go.Scatter(
+                        x=[same_date_points['Размещениеt'].iloc[i], same_date_points['Размещениеt'].iloc[j]],
+                        y=[same_date_points['spread'].iloc[i], same_date_points['Cspread'].iloc[j]],
+                        mode='lines',
+                        line=dict(color='goldenrod', width=2),
+                        showlegend=False
+                    ))
 
     # Настройка графика
     fig.update_layout(
