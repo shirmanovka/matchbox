@@ -114,6 +114,18 @@ if not f_df.empty:
         name='Спред при размещении'
     ))
 
+    # Добавление стрелок между точками с одинаковой датой размещения
+    for i in range(len(f_df)):
+        for j in range(len(f_df)):
+            if f_df['Размещениеt'].iloc[i] == f_df['Размещениеt'].iloc[j] and i != j:
+                fig.add_trace(go.Scatter(
+                    x=[f_df['Размещениеt'].iloc[i], f_df['Размещениеt'].iloc[j]],
+                    y=[f_df['spread'].iloc[i], f_df['Cspread'].iloc[j]],
+                    mode='lines+text',
+                    line=dict(color='goldenrod', width=2),
+                    showlegend=False
+                ))
+
     # Настройка графика
     fig.update_layout(
         title='Карта рынка',
